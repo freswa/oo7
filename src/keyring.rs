@@ -57,7 +57,9 @@ impl Keyring {
             Err(dbus::Error::Zbus(zbus::Error::Unsupported)) => {
                 dbus::Service::new(Algorithm::Plain).await
             }
-            Err(e) => Err(e),
+            Err(e) => {
+                println!("Error: {:?}", e);
+                Err(e) }
         }?;
         let collection = match service.default_collection().await {
             Ok(c) => Ok(c),
