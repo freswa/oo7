@@ -54,7 +54,7 @@ impl Keyring {
         }
         let service = match dbus::Service::new(Algorithm::Encrypted).await {
             Ok(service) => Ok(service),
-            Err(dbus::Error::Zbus(zbus::Error::Unsupported)) => {
+            Err(dbus::Error::Zbus(zbus::Error::MethodError(../* fields */))) => {
                 dbus::Service::new(Algorithm::Plain).await
             }
             Err(e) => {
